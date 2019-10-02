@@ -16,7 +16,7 @@ function getUsers(req, res) {
             if (err) {
                 return res.status(500).json({
                     ok: false,
-                    message: 'Error getting users',
+                    message: 'Error al obtener usuarios.',
                     error: err
                 })
             }
@@ -26,7 +26,7 @@ function getUsers(req, res) {
                 if (err) {
                     return res.status(500).json({
                         ok: false,
-                        message: 'Error counting users',
+                        message: 'Error obteniendo el total de usuarios.',
                         error: err
                     })
                 }
@@ -49,7 +49,7 @@ function getUser(req, res) {
             if (err) {
                 return res.status(500).json({
                     ok: false,
-                    message: 'Error getting user',
+                    message: 'Error al obtener usuarios.',
                     error: err
                 })
             }
@@ -57,7 +57,7 @@ function getUser(req, res) {
             if (!user) {
                 return res.status(404).json({
                     ok: false,
-                    message: 'User does not exists'
+                    message: 'El usuario no existe.'
                 });
             };
 
@@ -80,7 +80,7 @@ function registerUser(req, res) {
     var user = new User({
         name: body.name,
         surname: body.surname,
-        email: body.email,
+        email: body.email.toLowerCase(),
         password: encryptedPassword,
         img: 'null',
         role: body.role
@@ -90,7 +90,7 @@ function registerUser(req, res) {
         if (err) {
             return res.status(400).json({
                 ok: false,
-                message: 'Error registering user',
+                message: 'Error registrando el usuario.',
                 error: err
             })
         }
@@ -112,7 +112,7 @@ function deleteUser(req, res) {
         if (err) {
             return res.status(500).json({
                 ok: false,
-                message: 'Error deleting user',
+                message: 'Error eliminando el usuario.',
                 error: err
             })
         }
@@ -120,7 +120,7 @@ function deleteUser(req, res) {
         if (!userDeleted) {
             return res.status(404).json({
                 ok: false,
-                message: 'User does not exists'
+                message: 'El usuario no existe.'
             });
         };
 
@@ -140,7 +140,7 @@ function updateUser(req, res) {
         if (['ADMIN_ROLE', 'USER_ROLE'].indexOf(req.body.role) < 0) {
             return res.status(400).json({
                 ok: false,
-                message: 'Role is not valid'
+                message: 'El rol no es válido.'
             })
         }
     }
@@ -148,7 +148,7 @@ function updateUser(req, res) {
     if (req.body.password) {
         return res.status(400).json({
             ok: false,
-            message: 'You can not update password'
+            message: 'No puede actualizar la contraseña.'
         })
     }
 
@@ -156,7 +156,7 @@ function updateUser(req, res) {
         if (err) {
             return res.status(500).json({
                 ok: false,
-                message: 'Error updating user',
+                message: 'Error actualizando usuario.',
                 error: err
             })
         }
@@ -164,7 +164,7 @@ function updateUser(req, res) {
         if (!userUpdated) {
             return res.status(404).json({
                 ok: false,
-                message: 'User does not exists'
+                message: 'El usuario no existe.'
             });
         };
 

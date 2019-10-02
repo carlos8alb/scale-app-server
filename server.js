@@ -36,8 +36,10 @@ mongoose.connection.openUri('mongodb://localhost:27017/queue-app-db', { useNewUr
 
 // Load Routes
 var userRoutes = require('./routes/user');
+var loginRoutes = require('./routes/login');
 
 // Base Routes
 app.use('/user', userRoutes);
+app.use('/login', loginRoutes);
 
 module.exports = app;

@@ -7,26 +7,26 @@ var Schema = mongoose.Schema;
 
 var validRoles = {
     values: ['ADMIN_ROLE', 'USER_ROLE'],
-    message: '{VALUE} is not a valid role'
+    message: '{VALUE} no es un rol válido.'
 };
 
 var userSchema = new Schema({
     name: {
         type: String,
-        required: [true, 'Name is required']
+        required: [true, 'El atributo nombre es requerido.']
     },
     surname: {
         type: String,
-        required: [true, 'Surname is required']
+        required: [true, 'El atributo apellido es requerido.']
     },
     email: {
         type: String,
         unique: true,
-        required: [true, 'Email is required']
+        required: [true, 'El atributo email es requerido.']
     },
     password: {
         type: String,
-        required: [true, 'Password is required']
+        required: [true, 'El atributo contrseña es requerido.']
     },
     img: {
         type: String,
@@ -40,6 +40,6 @@ var userSchema = new Schema({
     }
 }, { timestamps: true });
 
-userSchema.plugin(uniqueValidator, { message: '{PATH} has to be unique' });
+userSchema.plugin(uniqueValidator, { message: '{PATH} debe ser único.' });
 
 module.exports = mongoose.model('User', userSchema);
