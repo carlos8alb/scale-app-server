@@ -22,7 +22,7 @@ app.use(bodyParser.json());
 
 //Conection DB
 var port = process.env.PORT || 3977;
-mongoose.connection.openUri('mongodb://localhost:27017/queue-app-db', { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: true },
+mongoose.connection.openUri('mongodb://localhost:27017/scale-app-db', { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: true },
     (err, res) => {
         if (err) throw err;
         console.log('Data Base: \x1b[32m%s\x1b[0m', 'online');

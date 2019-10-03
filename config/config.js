@@ -1,1 +1,1 @@
-module.exports.SEED = '@queue-app';
+module.exports.SEED = '@scale-app';

@@ -1,7 +1,7 @@
 {
     "name": "server",
     "version": "1.0.0",
-    "description": "Server Back End Queue App",
+    "description": "Server Back End Scale App",
     "main": "index.js",
     "scripts": {
         "start": "nodemon server.js",
