@@ -37,9 +37,13 @@ mongoose.connection.openUri('mongodb://localhost:27017/scale-app-db', { useNewUr
 // Load Routes
 var userRoutes = require('./routes/user');
 var loginRoutes = require('./routes/login');
+var pacientRoutes = require('./routes/pacient');
+var antecedentRoutes = require('./routes/antecedent');
 
 // Base Routes
 app.use('/user', userRoutes);
 app.use('/login', loginRoutes);
+app.use('/pacient', pacientRoutes);
+app.use('/antecedent', antecedentRoutes);
 
 module.exports = app;

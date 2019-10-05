@@ -1,4 +1,4 @@
-'user strict'
+'use strict'
 
 var bcrypt = require('bcryptjs');
 var User = require('../models/user');
@@ -137,7 +137,7 @@ function updateUser(req, res) {
 
     // Check if the string is in the array
     if (req.body.role) {
-        if (['ADMIN_ROLE', 'USER_ROLE'].indexOf(req.body.role) < 0) {
+        if (['ADMIN_ROLE', 'USER_ROLE', 'DEMO_ROLE'].indexOf(req.body.role) < 0) {
             return res.status(400).json({
                 ok: false,
                 message: 'El rol no es válido.'
