@@ -39,11 +39,13 @@ var userRoutes = require('./routes/user');
 var loginRoutes = require('./routes/login');
 var pacientRoutes = require('./routes/pacient');
 var antecedentRoutes = require('./routes/antecedent');
+var measureRoutes = require('./routes/measure');
 
 // Base Routes
 app.use('/user', userRoutes);
 app.use('/login', loginRoutes);
 app.use('/pacient', pacientRoutes);
 app.use('/antecedent', antecedentRoutes);
+app.use('/measure', measureRoutes);
 
 module.exports = app;
