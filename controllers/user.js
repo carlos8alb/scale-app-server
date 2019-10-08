@@ -152,7 +152,8 @@ function updateUser(req, res) {
         })
     }
 
-    User.findByIdAndUpdate(userId, updateBody, (err, userUpdated) => {
+    User.findById(userId, (err, userUpdated) => {
+
         if (err) {
             return res.status(500).json({
                 ok: false,
@@ -168,10 +169,29 @@ function updateUser(req, res) {
             });
         };
 
-        return res.status(200).json({
-            ok: true,
-            userUpdatedId: userId,
-            dataUpdated: updateBody
+        userUpdated.name = updateBody.name;
+        userUpdated.surname = updateBody.surname;
+        userUpdated.role = updateBody.role;
+
+        userUpdated.save((err, userSaved) => {
+
+            if (!userSaved) {
+                return res.status(400).json({
+                    ok: false,
+                    message: 'Error actualizando usuario.',
+                    error: err
+                });
+            }
+
+            // No mostrar contraseña en el post
+            userSaved.password = '';
+
+            return res.status(200).json({
+                ok: true,
+                userUpdatedId: userId,
+                user: userSaved
+            })
+
         })
     })
 

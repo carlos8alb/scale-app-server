@@ -12,7 +12,7 @@ var app = express.Router();
 
 app.get('/', UserController.getUsers);
 app.get('/:id', UserController.getUser);
-app.post('/register', mdAutenticacion.verifyToken, UserController.registerUser);
+app.post('/register', UserController.registerUser);
 app.delete('/:id', mdAutenticacion.verifyToken, UserController.deleteUser);
 app.put('/update/:id', mdAutenticacion.verifyToken, UserController.updateUser);
 

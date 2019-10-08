@@ -33,23 +33,57 @@ function registerMeasure(req, res) {
     var body = req.body;
 
     var measure = new Measure({
-        peso: body.peso,
-        altura: body.altura,
-        pa: body.pa,
-        t: body.t,
+
+        pesoActual: body.pesoActual,
+        talla: body.talla,
+        tallaSentado: body.tallaSentado,
+        envergadura: body.envergadura,
         imc: body.imc,
-        ccintura: body.ccintura,
-        ccadera: body.ccadera,
-        pab: body.pab,
-        pb: body.pb,
-        pt: body.pt,
-        psubescapular: body.psubescapular,
-        ppantorrilla: body.ppantorrilla,
-        pmuslomax: body.pmuslomax,
-        cbt: body.cbt,
-        cbr: body.cbr,
-        cmuslomax: body.cmuslomax,
-        pantorrillamax: body.pantorrillamax,
+
+        acromialRadial: body.acromialRadial,
+        radialEstiloidea: body.radialEstiloidea,
+        medialEstiloideaDactilar: body.medialEstiloideaDactilar,
+        ilioespinal: body.ilioespinal,
+        trocanterea: body.trocanterea,
+        trocantereaTrivialLateral: body.trocantereaTrivialLateral,
+        tribialLateral: body.tribialLateral,
+        tribialMedialMaleolarMedial: body.tribialMedialMaleolarMedial,
+        pie: body.pie,
+
+        biacromial: body.biacromial,
+        toraxTransverso: body.toraxTransverso,
+        toraxAnteroposterior: body.toraxAnteroposterior,
+        biIliocrestidio: body.biIliocrestidio,
+        humeral: body.humeral,
+        femoral: body.femoral,
+        munecaBiestiloideo: body.munecaBiestiloideo,
+        tobilloBiestiloideo: body.tobilloBiestiloideo,
+
+        cabeza: body.cabeza,
+        cuello: body.cuello,
+        brazoRelajado: body.brazoRelajado,
+        brazoFlexEnTension: body.brazoFlexEnTension,
+        antebrazo: body.antebrazo,
+        muneca: body.muneca,
+        toraxMesoesternal: body.toraxMesoesternal,
+        cinturaMinima: body.cinturaMinima,
+        abdominalMaximo: body.abdominalMaximo,
+        caderasMaxima: body.caderasMaxima,
+        musloSuperior: body.musloSuperior,
+        musloMedial: body.musloMedial,
+        pantorrillaMaxima: body.pantorrillaMaxima,
+        tobilloMinima: body.tobilloMinima,
+
+        triceps: body.triceps,
+        subescapular: body.subescapular,
+        biceps: body.biceps,
+        crestaIliaca: body.crestaIliaca,
+        supraespinal: body.supraespinal,
+        abdominal: body.abdominal,
+        musloAnterior: body.musloAnterior,
+        pantorrilla: body.pantorrilla,
+
+        date: body.date,
         notas: body.notas,
         img: body.img,
         pacientId: body.pacientId
@@ -108,6 +142,13 @@ function updateMeasure(req, res) {
             ok: false,
             message: 'No puede modificar el id de los datos antropométricos.'
         });
+    }
+
+    if (req.body.pacientId) {
+        return res.status(400).json({
+            ok: false,
+            message: 'No puede modificar el paciente.'
+        })
     }
 
     Measure.findOneAndUpdate({ _id: measureId }, updateBody, (err, measureUpdated) => {
