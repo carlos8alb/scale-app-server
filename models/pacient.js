@@ -29,7 +29,7 @@ var pacientSchema = new Schema({
         type: String,
         required: false
     },
-    placeAppoitment: {
+    placeAppointment: {
         type: String,
         required: false
     },

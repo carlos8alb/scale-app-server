@@ -145,12 +145,14 @@ function updateUser(req, res) {
         }
     }
 
-    if (req.body.password) {
-        return res.status(400).json({
-            ok: false,
-            message: 'No puede actualizar la contraseña.'
-        })
-    }
+
+    // if (req.body.password || req.body.email) {
+    //     return res.status(400).json({
+    //         ok: false,
+    //         message: 'No puede actualizar la contraseña o email.'
+    //     })
+    // }
+
 
     User.findById(userId, (err, userUpdated) => {
 
@@ -169,6 +171,7 @@ function updateUser(req, res) {
             });
         };
 
+        // FIELDS TO MODIFY
         userUpdated.name = updateBody.name;
         userUpdated.surname = updateBody.surname;
         userUpdated.role = updateBody.role;

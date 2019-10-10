@@ -6,8 +6,13 @@ function getPacients(req, res) {
     var from = Number(req.query.from) || 0;
     var itemsPage = Number(req.query.itemspage) || 10;
     var sortBy = req.query.sortby || '';
+    var textSearched = req.query.textSearched || '';
+
+    //Search in any caracter string
+    var regExp = new RegExp(textSearched, 'i');
 
     Pacient.find({})
+        .or([{ dni: regExp }, { name: regExp }, { surname: regExp }])
         .sort(sortBy)
         .skip(from)
         .limit(itemsPage)
@@ -79,7 +84,7 @@ function registerPacient(req, res) {
         birthdate: body.birthdate,
         address: body.address,
         socialInsureance: body.socialInsureance,
-        placeAppoitment: body.placeAppoitment,
+        placeAppointment: body.placeAppointment,
         email: body.email.toLowerCase(),
         contactNumber: body.contactNumber,
         img: body.img,
