@@ -17,8 +17,8 @@ var pacientSchema = new Schema({
         type: String,
         required: [true, 'El atributo apellido es requerido.']
     },
-    birthdate: {
-        type: Date,
+    birthday: {
+        type: String,
         required: [true, 'El atributo fecha de nacimiento es requerido.']
     },
     address: {
@@ -39,11 +39,12 @@ var pacientSchema = new Schema({
     },
     contactNumber: {
         type: String,
-        required: [true, 'El atributo teléfono de contacto es requerido.']
+        required: false
     },
     img: {
         type: String,
-        required: false
+        required: false,
+        default: 'null'
     },
     user: {
         type: Schema.Types.ObjectId,

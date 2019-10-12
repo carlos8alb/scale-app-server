@@ -7,16 +7,17 @@ function getPacients(req, res) {
     var itemsPage = Number(req.query.itemspage) || 10;
     var sortBy = req.query.sortby || '';
     var textSearched = req.query.textSearched || '';
+    var userId = req.query.userId;
 
     //Search in any caracter string
     var regExp = new RegExp(textSearched, 'i');
 
-    Pacient.find({})
-        .or([{ dni: regExp }, { name: regExp }, { surname: regExp }])
+    Pacient.find({ user: userId, $or: [{ dni: regExp }, { name: regExp }, { surname: regExp }] })
+        // .or([{ dni: regExp }, { name: regExp }, { surname: regExp }])
         .sort(sortBy)
         .skip(from)
         .limit(itemsPage)
-        .exec((err, pacients, total) => {
+        .exec((err, pacients) => {
             if (err) {
                 return res.status(500).json({
                     ok: false,
@@ -25,24 +26,16 @@ function getPacients(req, res) {
                 })
             }
 
-            Pacient.count((err, total) => {
+            let totalPacients = pacients.length
 
-                if (err) {
-                    return res.status(500).json({
-                        ok: false,
-                        message: 'Error obteniendo el total de pacientes.',
-                        error: err
-                    })
-                }
-
-                return res.status(200).json({
-                    ok: true,
-                    pacients: pacients,
-                    total: total
-                })
+            return res.status(200).json({
+                ok: true,
+                pacients: pacients,
+                total: totalPacients
             })
 
         })
+
 }
 
 function getPacient(req, res) {
@@ -81,11 +74,11 @@ function registerPacient(req, res) {
         dni: body.dni,
         name: body.name,
         surname: body.surname,
-        birthdate: body.birthdate,
+        birthday: body.birthday,
         address: body.address,
         socialInsureance: body.socialInsureance,
         placeAppointment: body.placeAppointment,
-        email: body.email.toLowerCase(),
+        email: body.email,
         contactNumber: body.contactNumber,
         img: body.img,
         user: req.user
