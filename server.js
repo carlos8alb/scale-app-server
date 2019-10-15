@@ -4,6 +4,7 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
+require('./config/config');
 
 // Init vars
 var app = express()
@@ -21,15 +22,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 //Conection DB
-var port = process.env.PORT || 3977;
-mongoose.connection.openUri('mongodb://localhost:27017/scale-app-db', { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: true },
+mongoose.connection.openUri(process.env.URLDB, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: true },
     (err, res) => {
         if (err) throw err;
         console.log('Data Base: \x1b[32m%s\x1b[0m', 'online');
 
         // Escuchar peticiones
-        app.listen(port, () => {
-            console.log(`Express server port ${ port}: \x1b[32m%s\x1b[0m`, 'online');
+        app.listen(process.env.PORT, () => {
+            console.log(`Express server port ${ process.env.PORT }: \x1b[32m%s\x1b[0m`, 'online');
         });
     }
 );
