@@ -14,12 +14,12 @@ function getAntecedent(req, res) {
             })
         }
 
-        if (!antecedent) {
-            return res.status(404).json({
-                ok: false,
-                message: 'El antecedent no existe.'
-            });
-        };
+        // if (!antecedent) {
+        //     return res.status(404).json({
+        //         ok: false,
+        //         message: 'El antecedent no existe.'
+        //     });
+        // };
 
         return res.status(200).json({
             ok: true,
@@ -37,6 +37,7 @@ function registerAntecedent(req, res) {
         family: body.family,
         medication: body.medication,
         biochemical: body.biochemical,
+        others: body.others,
         pacientId: body.pacientId
     });
 
@@ -58,31 +59,6 @@ function registerAntecedent(req, res) {
 
 }
 
-// function deleteAntecedent(req, res) {
-//     var antecedentId = req.params.id;
-
-//     Antecedent.findByIdAndRemove(antecedentId, (err, antecedentDeleted) => {
-//         if (err) {
-//             return res.status(500).json({
-//                 ok: false,
-//                 message: 'Error eliminando el antecedente.',
-//                 error: err
-//             })
-//         }
-
-//         if (!antecedentDeleted) {
-//             return res.status(404).json({
-//                 ok: false,
-//                 message: 'El antecedente no existe.'
-//             });
-//         };
-
-//         return res.status(200).json({
-//             ok: true,
-//             antecedent: antecedentDeleted
-//         })
-//     })
-// }
 
 function updateAntecedent(req, res) {
     var pacientId = req.params.pacientId;

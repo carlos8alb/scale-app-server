@@ -22,6 +22,10 @@ var antecedentSchema = new Schema({
         type: String,
         required: false
     },
+    others: {
+        type: String,
+        required: false
+    },
     pacientId: {
         type: Schema.Types.ObjectId,
         ref: 'Pacient',
