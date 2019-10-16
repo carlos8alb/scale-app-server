@@ -20,5 +20,3 @@
         "nodemon": "^1.19.2"
     }
 }
-
-// npm run nodemon to run local
