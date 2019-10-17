@@ -10,7 +10,8 @@ var mdAutenticacion = require('../middlewares/autentication');
 
 var app = express.Router();
 
-app.get('/:pacientId', MeasureController.getMeasures);
+app.get('/:id', MeasureController.getMeasure);
+app.get('/pacient/:pacientId', MeasureController.getMeasures);
 app.post('/register', mdAutenticacion.verifyToken, MeasureController.registerMeasure);
 app.delete('/:id', mdAutenticacion.verifyToken, MeasureController.deleteMeasure);
 app.put('/update/:id', mdAutenticacion.verifyToken, MeasureController.updateMeasure);

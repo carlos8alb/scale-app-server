@@ -5,7 +5,36 @@ var Measure = require('../models/measure');
 function getMeasures(req, res) {
     var pacientId = req.params.pacientId;
 
-    Measure.find({ pacientId: pacientId }, (err, measure) => {
+    Measure.find({ pacientId: pacientId })
+        .sort('date')
+        .exec((err, measures) => {
+            if (err) {
+                return res.status(500).json({
+                    ok: false,
+                    message: 'Error al obtener los datos antropométricos.',
+                    error: err
+                })
+            }
+
+            if (!measures) {
+                return res.status(404).json({
+                    ok: false,
+                    message: 'Los datos antropométricos no existen.'
+                });
+            };
+
+            return res.status(200).json({
+                ok: true,
+                measures: measures
+            })
+        })
+
+}
+
+function getMeasure(req, res) {
+    var id = req.params.id;
+
+    Measure.findById(id, (err, measure) => {
         if (err) {
             return res.status(500).json({
                 ok: false,
@@ -144,12 +173,12 @@ function updateMeasure(req, res) {
         });
     }
 
-    if (req.body.pacientId) {
-        return res.status(400).json({
-            ok: false,
-            message: 'No puede modificar el paciente.'
-        })
-    }
+    // if (req.body.pacientId) {
+    //     return res.status(400).json({
+    //         ok: false,
+    //         message: 'No puede modificar el paciente.'
+    //     })
+    // }
 
     Measure.findOneAndUpdate({ _id: measureId }, updateBody, (err, measureUpdated) => {
         if (err) {
@@ -178,6 +207,7 @@ function updateMeasure(req, res) {
 
 module.exports = {
     getMeasures,
+    getMeasure,
     registerMeasure,
     deleteMeasure,
     updateMeasure
