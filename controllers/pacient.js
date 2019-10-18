@@ -15,8 +15,8 @@ function getPacients(req, res) {
     Pacient.find({ user: userId, $or: [{ dni: regExp }, { name: regExp }, { surname: regExp }] })
         // .or([{ dni: regExp }, { name: regExp }, { surname: regExp }])
         .sort(sortBy)
-        .skip(from)
-        .limit(itemsPage)
+        // .skip(from)
+        // .limit(itemsPage)
         .exec((err, pacients) => {
             if (err) {
                 return res.status(500).json({

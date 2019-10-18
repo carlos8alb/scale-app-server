@@ -113,7 +113,7 @@ function registerMeasure(req, res) {
         pantorrilla: body.pantorrilla,
 
         date: body.date,
-        notas: body.notas,
+        others: body.others,
         img: body.img,
         pacientId: body.pacientId
     })

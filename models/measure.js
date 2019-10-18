@@ -55,7 +55,7 @@ var measureSchema = new Schema({
     pantorrilla: { type: Number, required: false },
 
     date: { type: String, required: false },
-    notas: { type: String, required: false },
+    others: { type: String, required: false },
     img: { type: String, required: false },
     pacientId: {
         type: Schema.Types.ObjectId,
