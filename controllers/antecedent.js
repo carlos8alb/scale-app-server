@@ -90,7 +90,7 @@ function updateAntecedent(req, res) {
         return res.status(200).json({
             ok: true,
             pacienteAntecedentUpdatedId: pacientId,
-            dataUpdated: updateBody
+            antecedent: antecedentUpdated
         })
     })
 
