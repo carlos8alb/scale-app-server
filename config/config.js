@@ -29,3 +29,15 @@ if (process.env.NODE_ENV === 'dev') {
 }
 
 process.env.URLDB = urlDB;
+
+// ============================
+// Mail
+// ============================
+
+module.exports.MAIL = {
+    host: 'smtp.gmail.com',
+    port: '587',
+    SSL: '465',
+    user: 'sebacarlos@gmail.com',
+    pass: process.env.NODE_ENV === 'dev' ? 'maomukazogaxbvcb' : 'kllnugoquszsdiwe'
+}
