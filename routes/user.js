@@ -16,5 +16,6 @@ app.get('/recoverpassword/:email', UserController.getUserByEmail);
 app.post('/register', UserController.registerUser);
 app.delete('/:id', mdAutenticacion.verifyToken, UserController.deleteUser);
 app.put('/update/:id', mdAutenticacion.verifyToken, UserController.updateUser);
+app.put('/resetpassword/:recoverpasswordid', UserController.resetPassword);
 
 module.exports = app;

@@ -1,6 +1,7 @@
 'use strict'
 
 var bcrypt = require('bcryptjs');
+var uniqid = require('uniqid');
 var User = require('../models/user');
 
 function getUsers(req, res) {
@@ -206,7 +207,7 @@ function getUserByEmail(req, res) {
         if (err) {
             return res.status(500).json({
                 ok: false,
-                message: 'Error al obtener usuarios.',
+                message: 'Error al obtener usuario.',
                 error: err
             })
         }
@@ -218,10 +219,77 @@ function getUserByEmail(req, res) {
             });
         };
 
-        return res.status(200).json({
-            ok: true,
-            user: userDB
+        userDB.recoverPasswordId = uniqid();
+
+        userDB.save((err, userSaved) => {
+
+            if (err) {
+                return res.status(500).json({
+                    ok: false,
+                    message: 'Error al obtener usuario.',
+                    error: err
+                })
+            }
+
+            userSaved.password = '';
+
+            return res.status(200).json({
+                ok: true,
+                message: 'El usuario fue obtenido correctamente.',
+                user: userSaved
+            })
         })
+
+    })
+
+}
+
+function resetPassword(req, res) {
+    var recoverpasswordid = req.params.recoverpasswordid;
+    var password = req.body.password;
+
+    User.findOne({ recoverPasswordId: recoverpasswordid }, (err, userDB) => {
+        if (err) {
+            return res.status(500).json({
+                ok: false,
+                message: 'Error al obtener usuario.',
+                error: err
+            })
+        }
+
+        if (!userDB) {
+            return res.status(404).json({
+                ok: false,
+                message: 'El usuario no existe.'
+            });
+        };
+
+        userDB.password = bcrypt.hashSync(password, 10);
+        userDB.recoverPasswordId = 'null';
+
+        userDB.save((err, userSaved) => {
+
+            if (err) {
+                return res.status(500).json({
+                    ok: false,
+                    message: 'Error al obtener usuario.',
+                    error: err
+                })
+            }
+
+            if (!userSaved) {
+                return res.status(404).json({
+                    ok: false,
+                    message: 'Error al actualizar password.'
+                });
+            };
+
+            return res.status(200).json({
+                ok: true,
+                message: 'Contraseña actualizada correctamente.'
+            })
+        })
+
     })
 
 }
@@ -232,5 +300,6 @@ module.exports = {
     getUser,
     deleteUser,
     updateUser,
-    getUserByEmail
+    getUserByEmail,
+    resetPassword
 };

@@ -30,13 +30,19 @@ var userSchema = new Schema({
     },
     img: {
         type: String,
-        required: false
+        required: false,
+        default: 'null'
     },
     role: {
         type: String,
         required: true,
         default: 'USER_ROLE',
         enum: validRoles
+    },
+    recoverPasswordId: {
+        type: String,
+        required: true,
+        default: 'null'
     }
 }, { timestamps: true });
 
