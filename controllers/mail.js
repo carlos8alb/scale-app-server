@@ -28,12 +28,14 @@ async function send(req, res) {
         if (err) {
             return res.status(500).json({
                 ok: false,
+                message: 'Error al enviar el mail.',
                 error: err
             })
         }
 
         return res.status(200).json({
             ok: true,
+            message: 'El mail se envió correctamente.',
             info: info
         })
 

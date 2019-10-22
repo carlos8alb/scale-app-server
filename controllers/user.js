@@ -197,6 +197,32 @@ function updateUser(req, res) {
 
         })
     })
+}
+
+function getUserByEmail(req, res) {
+    var userEmail = req.params.email;
+
+    User.findOne({ email: userEmail }, (err, userDB) => {
+        if (err) {
+            return res.status(500).json({
+                ok: false,
+                message: 'Error al obtener usuarios.',
+                error: err
+            })
+        }
+
+        if (!userDB) {
+            return res.status(404).json({
+                ok: false,
+                message: 'El usuario no existe.'
+            });
+        };
+
+        return res.status(200).json({
+            ok: true,
+            user: userDB
+        })
+    })
 
 }
 
@@ -205,5 +231,6 @@ module.exports = {
     getUsers,
     getUser,
     deleteUser,
-    updateUser
+    updateUser,
+    getUserByEmail
 };
