@@ -4,6 +4,11 @@ var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
 
+var validSex = {
+    values: ['Hombre', 'Mujer', 'Sin definir'],
+    message: '{VALUE} no es un sexo válido.'
+};
+
 var pacientSchema = new Schema({
     dni: {
         type: String,
@@ -32,6 +37,12 @@ var pacientSchema = new Schema({
     placeAppointment: {
         type: String,
         required: false
+    },
+    sex: {
+        type: String,
+        required: false,
+        default: 'Sin definir',
+        enum: validSex
     },
     email: {
         type: String,

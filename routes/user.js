@@ -14,6 +14,7 @@ app.get('/', UserController.getUsers);
 app.get('/:id', UserController.getUser);
 app.get('/recoverpassword/:email', UserController.getUserByEmail);
 app.post('/register', UserController.registerUser);
+app.post('/captcha', UserController.checkCaptcha);
 app.delete('/:id', mdAutenticacion.verifyToken, UserController.deleteUser);
 app.put('/update/:id', mdAutenticacion.verifyToken, UserController.updateUser);
 app.put('/resetpassword/:recoverpasswordid', UserController.resetPassword);

@@ -78,6 +78,7 @@ function registerPacient(req, res) {
         address: body.address,
         socialInsureance: body.socialInsureance,
         placeAppointment: body.placeAppointment,
+        sex: body.sex,
         email: body.email,
         contactNumber: body.contactNumber,
         img: body.img,

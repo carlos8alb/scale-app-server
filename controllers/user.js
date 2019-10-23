@@ -2,6 +2,7 @@
 
 var bcrypt = require('bcryptjs');
 var uniqid = require('uniqid');
+var request = require('request');
 var User = require('../models/user');
 
 function getUsers(req, res) {
@@ -294,6 +295,30 @@ function resetPassword(req, res) {
 
 }
 
+function checkCaptcha(req, res) {
+    const secretKey = req.body.secretKey;
+    const captchaResponse = req.body.captchaResponse;
+    const url = `https://www.google.com/recaptcha/api/siteverify?secret=${ secretKey }&response=${ captchaResponse }`;
+
+    request.post(url, (error, response) => {
+        if (error) {
+            return res.status(500).json({
+                ok: false,
+                message: 'Error al verificar captcha.',
+                error: error
+            })
+        }
+
+        var bodyResult = JSON.parse(response.body);
+
+        return res.status(200).json({
+            ok: true,
+            success: bodyResult.success
+        })
+    });
+
+}
+
 module.exports = {
     registerUser,
     getUsers,
@@ -301,5 +326,6 @@ module.exports = {
     deleteUser,
     updateUser,
     getUserByEmail,
-    resetPassword
+    resetPassword,
+    checkCaptcha
 };
