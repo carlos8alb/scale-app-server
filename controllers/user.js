@@ -3,6 +3,7 @@
 var bcrypt = require('bcryptjs');
 var uniqid = require('uniqid');
 var request = require('request');
+
 var User = require('../models/user');
 
 function getUsers(req, res) {

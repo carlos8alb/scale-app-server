@@ -5,9 +5,6 @@ var MailController = require('../controllers/mail');
 
 var app = express();
 
-// middleware
-var mdAutenticacion = require('../middlewares/autentication');
-
 var app = express.Router();
 
 app.post('/send', MailController.send);

@@ -41,6 +41,7 @@ var pacientRoutes = require('./routes/pacient');
 var antecedentRoutes = require('./routes/antecedent');
 var measureRoutes = require('./routes/measure');
 var mailRoutes = require('./routes/mail');
+var uploadRoutes = require('./routes/upload');
 
 // Base Routes
 app.use('/user', userRoutes);
@@ -49,5 +50,6 @@ app.use('/pacient', pacientRoutes);
 app.use('/antecedent', antecedentRoutes);
 app.use('/measure', measureRoutes);
 app.use('/mail', mailRoutes);
+app.use('/upload', uploadRoutes);
 
 module.exports = app;
