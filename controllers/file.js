@@ -1,9 +1,10 @@
 'use strict'
 
 var fs = require('fs');
+const path = require('path');
 var uniqid = require('uniqid');
 
-function saveFile(req, res) {
+function upload(req, res) {
 
     let destination = req.params.destination;
     let id = req.params.id;
@@ -18,7 +19,7 @@ function saveFile(req, res) {
     var file = req.files.file;
     var totalFiles = req.files.file.length || 1;
 
-    if (totalFiles > 1 && (destination === 'users' || destination === 'pacients')) {
+    if (totalFiles > 1 && (destination === 'user' || destination === 'pacient')) {
         return res.status(400).json({
             ok: false,
             message: 'No puede subir mas de un archivo.'
@@ -45,11 +46,11 @@ function saveFile(req, res) {
     var path = `./uploads/${ destination }/${ fileName }`;
 
     switch (destination) {
-        case 'users':
+        case 'user':
             uploadFile('user', destination, id, fileName, res, file, path);
             break;
 
-        case 'pacients':
+        case 'pacient':
             uploadFile('pacient', destination, id, fileName, res, file, path);
             break;
 
@@ -138,6 +139,21 @@ function uploadFile(modelType, destination, id, fileName, res, file, path) {
 
 }
 
+function get(req, res) {
+    var destination = req.params.destination;
+    var id = req.params.id;
+
+    var pathImagen = path.resolve(__dirname, `../uploads/${ destination }/${ id }`);
+
+    if (fs.existsSync(pathImagen)) {
+        res.sendFile(pathImagen);
+    } else {
+        var pathNoImage = path.resolve(__dirname, `../assets/images/no-img.jpg`);
+        res.sendFile(pathNoImage);
+    }
+}
+
 module.exports = {
-    saveFile
+    upload,
+    get
 };
