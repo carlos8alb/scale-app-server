@@ -18,5 +18,6 @@ app.post('/captcha', UserController.checkCaptcha);
 app.delete('/:id', mdAutenticacion.verifyToken, UserController.deleteUser);
 app.put('/update/:id', mdAutenticacion.verifyToken, UserController.updateUser);
 app.put('/resetpassword/:recoverpasswordid', UserController.resetPassword);
+app.put('/change-password/:id', UserController.changePassword);
 
 module.exports = app;

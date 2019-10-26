@@ -320,6 +320,65 @@ function checkCaptcha(req, res) {
 
 }
 
+function changePassword(req, res) {
+    const oldPassword = req.body.oldPassword || '';
+    const newPassword = req.body.newPassword || '';
+    const id = req.params.id;
+
+    User.findById(id, (err, userDB) => {
+        if (err) {
+            return res.status(500).json({
+                ok: false,
+                message: 'Error al buscar usuario.',
+                error: error
+            })
+        }
+
+        if (!userDB) {
+            return res.status(400).json({
+                ok: false,
+                message: 'No se encontró el usuario.'
+            })
+        }
+
+        if (!bcrypt.compareSync(oldPassword, userDB.password)) {
+            return res.status(400).json({
+                ok: false,
+                message: 'La contraseña actual es incorrecta.'
+            })
+        }
+
+        userDB.password = bcrypt.hashSync(newPassword, 10);
+
+        userDB.save((err, userSaved) => {
+            if (err) {
+                return res.status(500).json({
+                    ok: false,
+                    message: 'Error al guardar nueva contraseña.',
+                    error: error
+                })
+            }
+
+            if (!userSaved) {
+                return res.status(400).json({
+                    ok: false,
+                    message: 'Error al guardar nueva contraseña.',
+                })
+            }
+
+            userSaved.password = '';
+            return res.status(200).json({
+                ok: true,
+                message: 'La contraseña se actualizó correctamente.',
+                user: userSaved
+            })
+
+        });
+
+    })
+
+}
+
 module.exports = {
     registerUser,
     getUsers,
@@ -328,5 +387,6 @@ module.exports = {
     updateUser,
     getUserByEmail,
     resetPassword,
-    checkCaptcha
+    checkCaptcha,
+    changePassword
 };
