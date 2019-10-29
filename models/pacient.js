@@ -26,6 +26,10 @@ var pacientSchema = new Schema({
         type: String,
         required: [true, 'El atributo fecha de nacimiento es requerido.']
     },
+    age: {
+        type: String,
+        required: [true, 'El atributo edad es requerido.']
+    },
     address: {
         type: String,
         required: false

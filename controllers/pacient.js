@@ -75,6 +75,7 @@ function registerPacient(req, res) {
         name: body.name,
         surname: body.surname,
         birthday: body.birthday,
+        age: body.age,
         address: body.address,
         socialInsureance: body.socialInsureance,
         placeAppointment: body.placeAppointment,
