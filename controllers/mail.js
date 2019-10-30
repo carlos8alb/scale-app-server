@@ -17,7 +17,7 @@ async function send(req, res) {
     });
 
     let mailOptions = {
-        from: '"Scale App" <mail@scale-app.com>',
+        from: body.from || '"Scale App" <mail@scale-app.com>',
         to: body.to,
         subject: body.subject,
         html: body.body
